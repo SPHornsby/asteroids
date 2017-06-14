@@ -1,3 +1,4 @@
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 const rotationCorrection = require('./rotationCorrection')
 const ship = require('./ship')()
@@ -160,3 +161,55 @@ window.onload = function() {
     console.log('asteroid')
   }
 }
+
+},{"./rotationCorrection":2,"./ship":3}],2:[function(require,module,exports){
+
+// Phaser sets heading as 0 for up, 90 for right, -90 for left and 180 or -180 for down
+
+const rotationCorrection = (rotation) => {
+  let direction
+  if (rotation < 45 && rotation > -135) {
+    direction =  rotation -45
+  } else if (rotation <=-135 && rotation < 180){
+    direction = rotation + 315
+  }
+  else direction = Math.abs(rotation - 45)
+  return (direction + 360) % 360
+}
+module.exports = rotationCorrection
+},{}],3:[function(require,module,exports){
+
+  // Constants
+  const piForRad = Math.PI/180
+  // Functors
+  const degToRad = degree => degree * piForRad
+
+  const thrustVector = (angle) => {
+    let rad = degToRad(angle)
+    return {
+      x: Math.sin(rad) * 2,
+      y: Math.cos(rad) * -2
+    }
+  }
+  const fire = (angle) => {
+    let rad = degToRad(angle)
+    const left = (Math.sin(rad) * 21) -3
+    const top = (Math.cos(rad) * -21) -3
+    const x = Math.sin(rad) * 100
+    const y = Math.cos(rad) * -100
+    return {
+      left,
+      top,
+      x,
+      y
+    }
+  }
+  const ship = () => {
+    return {
+      fire,
+      thrustVector
+    }
+  }
+
+  module.exports = ship
+},{}]},{},[1]);

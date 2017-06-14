@@ -1,0 +1,35 @@
+{
+  "name": "asteroids",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "gulp": "gulp",
+    "watch": "watchify public/js/app.js -o public/js/bundle.js",
+    "build" : "browserify public/js/app.js -o public/js/bundle.js",
+    "test": "mocha tests",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SPHornsby/asteroids.git"
+  },
+  "author": "Sean Hornsby",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SPHornsby/asteroids/issues"
+  },
+  "homepage": "https://github.com/SPHornsby/asteroids#readme",
+  "devDependencies": {
+    "browserify": "^14.4.0",
+    "chai": "^4.0.2",
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^4.3.1",
+    "gulp-util": "^3.0.8",
+    "mocha": "^3.4.2",
+    "watchify": "^3.9.0"
+  }
+}
